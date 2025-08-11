@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Coming Soon — Your Brand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="We’re launching something great. Stay tuned.">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0e1116;
+      --fg:#e6e7ea;
+      --muted:#a7acb5;
+      --accent:#39c6b4;
+      --card:#171b22;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--fg);
+      background:radial-gradient(1200px 800px at 80% -20%, #1c2330 0%, transparent 60%), var(--bg);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px;
+    }
+    .card{
+      max-width:720px; width:100%;
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:16px; padding:32px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+      backdrop-filter:saturate(120%) blur(6px);
+    }
+    .logo{
+      display:flex; align-items:center; gap:12px; margin-bottom:12px;
+    }
+    .badge{
+      width:40px; height:40px; border-radius:10px;
+      display:grid; place-items:center;
+      background:conic-gradient(from 210deg, #2de2e6, #5efc8d, #a78bfa, #2de2e6);
+      color:#0a0d12; font-weight:800;
+      box-shadow:0 6px 16px rgba(45,226,230,0.35);
+    }
+    h1{margin:0 0 8px; font-size:28px; line-height:1.2; letter-spacing:0.2px}
+    p{margin:0 0 20px; color:var(--muted); font-size:16px}
+    .countdown{
+      display:flex; gap:10px; margin:18px 0 22px;
+    }
+    .unit{
+      background:var(--card); border:1px solid rgba(255,255,255,0.08);
+      border-radius:12px; padding:12px 14px; text-align:center; min-width:78px;
+    }
+    .num{font-size:22px; font-weight:700}
+    .lab{font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.6px}
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:8px
+    }
+    a.button, button.button{
+      appearance:none; border:none; cursor:pointer;
+      background:var(--accent); color:#0a0d12; font-weight:700;
+      padding:12px 16px; border-radius:12px; text-decoration:none; font-size:14px;
+      box-shadow:0 8px 20px rgba(57,198,180,0.35);
+    }
+    .ghost{
+      background:transparent; color:var(--fg); border:1px solid rgba(255,255,255,0.14);
+      box-shadow:none;
+    }
+    .footer{
+      margin-top:24px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      color:var(--muted); font-size:13px;
+    }
+    .contact a{color:var(--fg); text-decoration:none; border-bottom:1px dashed rgba(255,255,255,0.35)}
+    .social a{color:var(--muted); text-decoration:none; margin-right:10px}
+    @media (max-width:520px){
+      h1{font-size:24px}
+      .unit{min-width:64px}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main" aria-label="Coming Soon">
+    <div class="logo" aria-label="Brand">
+      <div class="badge" aria-hidden="true">A</div>
+      <div>
+        <h1>akanova.ae</h1>
+        <p>Something new is on the way. We’re crafting the experience.</p>
+      </div>
+    </div>
+
+    <!-- Optional countdown: set your launch date in data-launch -->
+    <section class="countdown" id="countdown" data-launch="2025-10-01T09:00:00Z" aria-label="Countdown to launch">
+      <div class="unit"><div class="num" id="d">--</div><div class="lab">Days</div></div>
+      <div class="unit"><div class="num" id="h">--</div><div class="lab">Hours</div></div>
+      <div class="unit"><div class="num" id="m">--</div><div class="lab">Mins</div></div>
+      <div class="unit"><div class="num" id="s">--</div><div class="lab">Secs</div></div>
+    </section>
+
+    <div class="cta">
+      <a class="button" href="mailto:hello@akanova.ae">Contact us</a>
+      <a class="button ghost" href="tel:+971000000000">+971 00 000 0000</a>
+    </div>
+
+    <div class="footer">
+      <div class="contact">Email: <a href="mailto:hello@akanova.ae">hello@akanova.ae</a></div>
+      <div class="social">
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+        <a href="#" aria-label="X">X</a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      const el = document.getElementById('countdown');
+      if(!el) return;
+      const launch = new Date(el.getAttribute('data-launch')).getTime();
+      const ids = {d:'d',h:'h',m:'m',s:'s'};
+      function tick(){
+        const now = Date.now();
+        let diff = Math.max(0, launch - now);
+        const d = Math.floor(diff / 86400000); diff -= d*86400000;
+        const h = Math.floor(diff / 3600000);  diff -= h*3600000;
+        const m = Math.floor(diff / 60000);    diff -= m*60000;
+        const s = Math.floor(diff / 1000);
+        document.getElementById(ids.d).textContent = String(d);
+        document.getElementById(ids.h).textContent = String(h).padStart(2,'0');
+        document.getElementById(ids.m).textContent = String(m).padStart(2,'0');
+        document.getElementById(ids.s).textContent = String(s).padStart(2,'0');
+      }
+      tick(); setInterval(tick, 1000);
+    })();
+  </script>
+</body>
+</html>
