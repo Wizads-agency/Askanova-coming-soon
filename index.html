@@ -1,1 +1,221 @@
-<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <title>Coming Soon</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="robots" content="noindex,nofollow"> <style> :root{ --bg1:#0e1116; --bg2:#151a22; --bg3:#1d2430; --fg:#e6e7ea; --accent:#39c6b4; } *{box-sizing:border-box} html,body{height:100%} body{ margin:0; color:var(--fg); background: radial-gradient(1200px 800px at 80% -20%, var(--bg3) 0%, transparent 60%), linear-gradient(180deg, var(--bg1), var(--bg2)); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; overflow:hidden; } .wrap{ position:relative; height:100%; width:100%; display:grid; place-items:center; padding:24px; perspective:900px; } .blob{ position:absolute; inset:-25%; background: conic-gradient(from 220deg, #2de2e6, #5efc8d, #a78bfa, #2de2e6); filter: blur(70px) saturate(130%); opacity:.16; animation: swirl 26s linear infinite; transform: translateZ(-200px); } @keyframes swirl{ to { transform: translateZ(-200px) rotate(360deg); } } .card{ position:relative; width:min(92vw, 820px); padding: clamp(28px, 4vw, 48px); border-radius: clamp(14px, 2vw, 20px); background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 20px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08); transform-style: preserve-3d; transition: transform 200ms ease-out, box-shadow 200ms ease-out; will-change: transform; text-align:center; } .row{ display:flex; align-items:center; justify-content:center; gap: clamp(8px, 2vw, 16px); user-select:none; flex-wrap:nowrap; } .dot{ width: clamp(10px, 2.5vw, 14px); height: clamp(10px, 2.5vw, 14px); border-radius:50%; background:var(--accent); box-shadow: 0 0 0 0 rgba(57,198,180,0.6); animation: pulse 2s infinite; flex:0 0 auto; } @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(57,198,180,0.6); } 70%{ box-shadow:0 0 0 18px rgba(57,198,180,0); } 100%{ box-shadow:0 0 0 0 rgba(57,198,180,0); } } h1{ margin:0; font-size: clamp(28px, 8vw, 64px); letter-spacing: .6px; background: linear-gradient(90deg, #eaf6ff, #dfffe9, #f0e9ff); -webkit-background-clip:text; background-clip:text; color:transparent; text-shadow: 0 2px 18px rgba(255,255,255,0.06); animation: float 5s ease-in-out infinite; line-height:1.1; } @keyframes float{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-6px); } } @media (prefers-reduced-motion: reduce){ .blob, .dot, h1{ animation: none !important; } .card{ transition: none; } } @media (max-width: 380px){ .wrap{ padding:16px; } } </style> </head> <body> <div class="wrap" id="wrap"> <div class="blob" aria-hidden="true"></div> <div class="card" id="card" role="status" aria-label="Coming Soon"> <div class="row"> <div class="dot" aria-hidden="true"></div> <h1>Coming Soon</h1> <div class="dot" aria-hidden="true"></div> </div> </div> </div> <script> (function(){ const card = document.getElementById('card'); const wrap = document.getElementById('wrap'); let w = window.innerWidth, h = window.innerHeight; function tilt(x, y){ const rx = ((y - h/2) / h) * 10; const ry = ((x - w/2) / w) * -12; card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`; } function reset(){ card.style.transform = 'rotateX(0deg) rotateY(0deg)'; } window.addEventListener('resize', ()=>{ w = window.innerWidth; h = window.innerHeight; }); // Mouse wrap.addEventListener('mousemove', e => tilt(e.clientX, e.clientY), {passive:true}); wrap.addEventListener('mouseleave', reset); // Device tilt const onDO = (ev)=>{ const x = (ev.gamma || 0) / 45; const y = (ev.beta || 0) / 45; card.style.transform = `rotateX(${y*8}deg) rotateY(${x*-10}deg)`; }; if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function') { wrap.addEventListener('click', async ()=> { try { const p = await DeviceOrientationEvent.requestPermission(); if (p === 'granted') window.addEventListener('deviceorientation', onDO, true); } catch(e){} }, {once:true}); } else if (window.DeviceOrientationEvent) { window.addEventListener('deviceorientation', onDO, true); } })(); </script> </body> </html>
+<!doctype html> <html lang="en"> <head> <meta charset="utf-8"> <title>ASKANOVA — Coming Soon</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="robots" content="noindex,nofollow"> <meta name="theme-color" content="#2F1316"> <style> :root{ /* Brand colors */ --merlot:#2F1316; /* Dark Merlot */ --blush:#F7F0F1; /* Blush Mist */ --copper:#A97A67; /* Muted Copper */
+    /* UI tokens */
+  --bg-deep: #241013;    /* derived from merlot for depth */
+  --text:#F7F0F1;
+  --text-muted:#dfd6d7;
+  --card: rgba(247,240,241,0.06);
+  --stroke: rgba(247,240,241,0.12);
+  --focus:#E3D6D8;
+  --error:#ff6961;
+  --ok:#67c18f;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color:var(--text);
+  background:
+    radial-gradient(1000px 700px at 80% -20%, rgba(169,122,103,0.20) 0%, transparent 60%),
+    radial-gradient(900px 700px at 0% 120%, rgba(169,122,103,0.16) 0%, transparent 60%),
+    linear-gradient(180deg, #35171B, var(--merlot));
+  overflow-x:hidden;
+}
+
+.wrap{
+  min-height:100%;
+  display:grid;
+  place-items:center;
+  padding:28px;
+  position:relative;
+  isolation:isolate;
+}
+
+/* Ambient animated shapes */
+.glow, .glow2{
+  position:absolute; inset:auto; z-index:-1; pointer-events:none; filter: blur(70px);
+  opacity:.35; mix-blend-mode: screen;
+  will-change: transform, opacity;
+}
+.glow{
+  width:560px; height:560px; top:-120px; right:-120px;
+  background: radial-gradient(circle at 30% 30%, rgba(247,240,241,0.55), rgba(169,122,103,0.25) 45%, rgba(47,19,22,0) 60%);
+  animation: drift1 22s ease-in-out infinite;
+}
+.glow2{
+  width:560px; height:560px; bottom:-140px; left:-140px;
+  background: radial-gradient(circle at 70% 70%, rgba(169,122,103,0.45), rgba(247,240,241,0.25) 45%, rgba(47,19,22,0) 60%);
+  animation: drift2 26s ease-in-out infinite;
+}
+@keyframes drift1{
+  0%,100%{ transform: translate(0,0) scale(1); opacity:.35;}
+  50%{ transform: translate(-20px,10px) scale(1.06); opacity:.45;}
+}
+@keyframes drift2{
+  0%,100%{ transform: translate(0,0) scale(1); opacity:.30;}
+  50%{ transform: translate(16px,-14px) scale(1.07); opacity:.40;}
+}
+
+.card{
+  width:min(940px, 100%);
+  background: linear-gradient(180deg, rgba(247,240,241,0.07), rgba(247,240,241,0.03));
+  border:1px solid var(--stroke);
+  border-radius:20px;
+  padding: clamp(20px, 4vw, 36px);
+  box-shadow:
+    0 24px 80px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(247,240,241,0.08);
+  display:grid;
+  grid-template-columns: 1fr;
+  gap: clamp(18px, 3vw, 28px);
+}
+
+.header{
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+}
+
+.logo{
+  width:56px; height:56px; border-radius:14px; overflow:hidden; flex:0 0 auto;
+  display:grid; place-items:center; background:rgba(247,240,241,0.06); border:1px solid var(--stroke);
+}
+.logo img{
+  width:100%; height:100%; object-fit:contain;
+}
+
+.brand{
+  display:flex; flex-direction:column; gap:6px; min-width:200px;
+}
+.brand h1{
+  margin:0; font-size: clamp(22px, 3.8vw, 28px); letter-spacing:.4px;
+  color:var(--blush);
+}
+.tag{
+  margin:0; color:var(--text-muted); font-size: clamp(13px, 2.5vw, 15px);
+}
+
+.hero{
+  display:flex; flex-direction:column; gap:10px;
+  margin-top:6px;
+}
+.title{
+  margin:0;
+  font-size: clamp(28px, 6.5vw, 48px);
+  line-height:1.1;
+  background: linear-gradient(90deg, #fff, var(--blush));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow: 0 2px 18px rgba(255,255,255,0.06);
+}
+.desc{
+  margin:0;
+  color:var(--text-muted);
+  font-size: clamp(14px, 3.5vw, 17px);
+  max-width:60ch;
+}
+
+/* Form */
+.form{
+  display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+  margin-top:8px;
+}
+.form .full{ grid-column: 1 / -1; }
+
+label{
+  display:block; margin:0 0 6px 2px; font-size:13px; color:var(--blush); opacity:.9;
+}
+input, textarea{
+  width:100%; color:var(--text);
+  background: rgba(247,240,241,0.05);
+  border:1px solid rgba(247,240,241,0.18);
+  border-radius:12px;
+  padding:12px 14px;
+  font-size:15px;
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+textarea{ min-height:110px; resize: vertical; }
+
+input::placeholder, textarea::placeholder{ color:#cdbfc1; }
+
+input:focus, textarea:focus{
+  border-color: var(--focus);
+  box-shadow: 0 0 0 4px rgba(247,240,241,0.08);
+  background: rgba(247,240,241,0.07);
+}
+
+.btn{
+  appearance:none; border:none; cursor:pointer;
+  background: linear-gradient(180deg, var(--copper), #986a59);
+  color:#1b0e10; font-weight:700;
+  padding:12px 18px; border-radius:12px; font-size:15px;
+  box-shadow: 0 10px 28px rgba(169,122,103,0.35);
+  transition: transform .06s ease, box-shadow .2s ease, filter .2s ease;
+  width:100%;
+}
+.btn:hover{ filter: brightness(1.04); box-shadow: 0 12px 36px rgba(169,122,103,0.45); }
+.btn:active{ transform: translateY(1px) scale(0.99); }
+
+.note{
+  margin-top:8px; color:var(--text-muted); font-size:13px;
+}
+
+.status{
+  margin-top:10px; font-size:14px;
+}
+.status.ok{ color: var(--ok); }
+.status.err{ color: var(--error); }
+
+/* Layout: stack on mobile */
+@media (max-width: 760px){
+  .form{ grid-template-columns: 1fr; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .glow,.glow2{ animation:none !important; }
+}
+</style> </head> <body> <div class="wrap"> <div class="glow" aria-hidden="true"></div> <div class="glow2" aria-hidden="true"></div>
+<main class="card" role="main" aria-label="Coming Soon">
+  <header class="header">
+    <div class="logo" aria-label="Askanova logo">
+      <!-- Replace logo.png with your actual logo path or URL -->
+      <img src="logo.png" alt="ASKANOVA logo">
+    </div>
+    <div class="brand">
+      <h1>ASKANOVA</h1>
+      <p class="tag">Real Estate</p>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h2 class="title">Coming Soon</h2>
+    <p class="desc">We’re crafting a premium property experience rooted in design, service, and Dubai’s architectural excellence. Be the first to know when we launch.</p>
+  </section>
+
+  <section aria-label="Contact form" class="contact">
+    <form id="contactForm" class="form" novalidate>
+      <div>
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" placeholder="John Doe" required>
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" placeholder="name@example.com" required>
+      </div>
+      <div>
+        <label for="phone">Phone</label>
+        <input id="phone" name="phone" type="tel" placeholder="+971 50 123 4567" pattern="^[0-9+\-\s()]{7,20}$">
+      </div>
+      <div class="full">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us what you’re looking for…"></textarea>
+      </div>
+      <div class="full">
+        <button class="btn" type="submit">Notify Me</button>
+        <div id="formStatus" class="status" role="status" aria-live="polite"></div>
+        <p class="note">By submitting, you agree to be contacted about upcoming properties and updates.</p>
+      </div>
+    </form>
+  </section>
+</main>
+</div> <script> // Basic form validation + submission placeholder (function(){ const form = document.getElementById('contactForm'); const status = document.getElementById('formStatus'); function validateEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } form.addEventListener('submit', async (e)=>{ e.preventDefault(); status.textContent = ''; status.className = 'status'; const data = Object.fromEntries(new FormData(form)); if(!data.name || !data.email){ status.textContent = 'Please fill in your name and email.'; status.classList.add('err'); return; } if(!validateEmail(data.email)){ status.textContent = 'Please enter a valid email address.'; status.classList.add('err'); return; } // Placeholder: replace this with your endpoint later // For now, simulate success. try{ await new Promise(r=>setTimeout(r, 700)); status.textContent = 'Thanks! We’ll be in touch soon.'; status.classList.add('ok'); form.reset(); }catch(err){ status.textContent = 'Something went wrong. Please try again.'; status.classList.add('err'); } }, {passive:false}); })(); </script> </body> </html>
